@@ -5,6 +5,7 @@ import Login from './formularios/login';
 import CadastroTcc from './formularios/cadastroTCC';
 import AtividadeDoAluno from './paginas/atividadeDoAluno';
 import TrabalhoAcademico from './paginas/thabalhoAcademico';
+import AdicionarTrabalhoDoTcc from './paginas/adicionarTrabalhoDoTcc';
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/atividadeDoAluno" element={<AtividadeDoAluno />} />
         <Route path="/cadastroTCC" element={<CadastroTcc />} />
         <Route path="/trabalhoAcademico" element={<TrabalhoAcademico />} />
+        <Route path="/adicionarTrabalhoDoTcc" element={<AdicionarTrabalhoDoTcc />} />
       </Routes>
       </BrowserRouter>
     </>

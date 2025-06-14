@@ -1,16 +1,15 @@
 import React from "react";
 import meuIcone from "../icones/usuario.png"
-import CadastroTcc from "../formularios/cadastroTCC";
 
 function atividadeDoAluno() {
 
     function rotaParaEntrar(e) {
         e.preventDefault();
 
-         window.location.href = "/cadastroTCC";
+        window.location.href = "/cadastroTCC";
 
-    
-        
+
+
     }
 
     return (
@@ -30,18 +29,19 @@ function atividadeDoAluno() {
                     <nav
                         className="navbar navbar-expand-lg w-100"
                         style={{
-                            backgroundColor: "#f5f3f4",
+                           
                             padding: "0.75rem 1rem",
                             margin: 0,
                             borderRadiu: '10px'
                         }}
                     >
                         <div className="container-fluid d-flex justify-content-between align-items-center">
-                            <h3 className="m-0">OrientaTCC</h3>
+                            <h1 className="m-0">OrientaTCC</h1>
 
                             <div className="d-flex align-items-center">
-                                {/* Oculta o nome em telas pequenas */}
-                                <h5 className="me-3 d-none d-md-block">Ana Maria</h5>
+                                
+
+                                <h3 className="me-3 d-none d-md-block">Ana Maria</h3>
 
                                 {/* Ícone com dropdown */}
                                 <div className="dropdown">
@@ -53,11 +53,11 @@ function atividadeDoAluno() {
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                         style={{
-                                            width: "40px",
-                                            height: "40px",
+                                            width: "60px",
+                                            height: "60px",
                                             borderRadius: "50%",
                                             cursor: "pointer",
-                                            backgroundColor: "#e9f1ff", // mesma cor do navbar pra ficar uniforme
+                                            backgroundColor: "#e9f1ff",
                                             padding: "4px"
                                         }}
                                     />
@@ -65,7 +65,7 @@ function atividadeDoAluno() {
                                         className="dropdown-menu dropdown-menu-end"
                                         aria-labelledby="dropdownMenuButton"
                                     >
-                                        <li><a className="dropdown-item" href="/login">Conta</a></li>
+                                        <li><a className="dropdown-item" href="/trabalhoAcademico">TrabalhoAcademico</a></li>
                                         <li><a className="dropdown-item" href="/login">Sair</a></li>
                                     </ul>
                                 </div>
@@ -73,16 +73,18 @@ function atividadeDoAluno() {
                         </div>
                     </nav>
 
+                    <hr style={{ border: "1px solid black", margin: "0 0 20px 0" }} />
+
 
 
                     {/* CONTEÚDO PRINCIPAL */}
                     <div className="flex-grow-1 d-flex flex-column justify-content-center">
-                        <h3 className="text-center mb-4">Bem-vindo, Ana Maria</h3>
-                        <p className="text-center w-100">
+                        <h1 className="text-center mb-4">Bem-vindo, Ana Maria</h1>
+                        <p className="text-center w-100" style={{fontSize: "25px"}}>
                             Cadastre seu trabalho de conclusão de curso
                         </p>
                         <div className="text-center mt-4">
-                            <button type="button" className="btn btn-primary btn-lg" onClick={rotaParaEntrar}>Cadastrar</button>
+                            <button type="button" className="btn btn-primary btn-lg" onClick={rotaParaEntrar} style={{width:"300px"}}>Cadastrar</button>
                         </div>
                     </div>
                 </div>

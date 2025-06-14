@@ -13,12 +13,12 @@ function cadastroTcc() {
     function rotaParaCadastrar(e) {
         e.preventDefault();
 
-        // Se os campos estão válidos, redireciona
+        
         const form = e.target;
-        if (form.checkValidity()) {//é um método nativo do HTML que verifica se todos os campos do formulário que têm validação (ex: required, type="email", etc.) estão preenchidos corretamente.
-            window.location.href = "/atividadeDoAluno";
+        if (form.checkValidity()) {
+            window.location.href = "/trabalhoAcademico";
         } else {
-            form.reportValidity(); // mostra os erros na tela
+            form.reportValidity(); 
         }
     }
 

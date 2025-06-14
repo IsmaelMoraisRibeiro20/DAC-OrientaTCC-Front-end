@@ -1,13 +1,10 @@
 import React from "react";
-import meuIcone from "../icones/usuario.png"
+import meuIcone from "../icones/usuario.png";
 
-function trabalhoAcademico() {
-
+function TrabalhoAcademico() {
     function rotaParaEntrar(e) {
         e.preventDefault();
-
-        window.location.href = "/cadastroTCC";
-
+        window.location.href = "/AdicionarTrabalhoDoTcc";
     }
 
     return (
@@ -17,89 +14,94 @@ function trabalhoAcademico() {
                     className="card shadow p-4"
                     style={{
                         width: "100%",
-                        maxWidth: "1000px",
-                        height: "550px",
-                        display: "flex",
-                        flexDirection: "column",
+                        maxWidth: "600px",
+                        height: "500px",
+                        borderRadius: "12px"
                     }}
                 >
-                    {/* NAVBAR  */}
-                    <nav
-                        className="navbar navbar-expand-lg w-100"
-                        style={{
-                            backgroundColor: "#f5f3f4",
-                            padding: "0.75rem 1rem",
-                            margin: 0,
-                            borderRadiu: '10px'
-                        }}
-                    >
-                        <div className="container-fluid d-flex justify-content-between align-items-center">
-                            <h3 className="m-0">OrientaTCC</h3>
-
-                            <div className="d-flex align-items-center">
-                                {/* Oculta o nome em telas pequenas */}
-                                <h5 className="me-3 d-none d-md-block">Ana Maria</h5>
-
-                                {/* Ícone com dropdown */}
-                                <div className="dropdown">
-                                    <img
-                                        src={meuIcone}
-                                        className="dropdown-toggle"
-                                        role="button"
-                                        id="dropdownMenuButton"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        style={{
-                                            width: "40px",
-                                            height: "40px",
-                                            borderRadius: "50%",
-                                            cursor: "pointer",
-                                            backgroundColor: "#e9f1ff", // mesma cor do navbar pra ficar uniforme
-                                            padding: "4px"
-                                        }}
-                                    />
-                                    <ul
-                                        className="dropdown-menu dropdown-menu-end"
-                                        aria-labelledby="dropdownMenuButton"
-                                    >
-                                        <li><a className="dropdown-item" href="/login">Conta</a></li>
-                                        <li><a className="dropdown-item" href="/login">Sair</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-
-
-
-                    {/* CONTEÚDO PRINCIPAL */}
-                    <h2 style={{
-                        marginTop: "30px",
-                        textAlign: "center"
-                    }}>Meu trabalho Academico</h2>
-
-                    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-                        <div className="card" style={{ width: "20rem", height: "20rem" }}>
-
-                            <div style={{ backgroundColor: "blue", padding: "10px" }}>
-                                <h4 className="card-title m-0">Tema: a volta dos que nao foram</h4>
-                                <h5 style={{ marginTop: "10px" }}>Orientador: Damião</h5>
-                            </div>
-
-                            <div className="card-body">
-                                <h6 style={{ marginTop: "20px" }}>Data de criação: 18/02/2040</h6>
-                            </div>
-
-                            <div className="text-center pb-3">
-                                <button className="btn btn-primary">Acessar</button>
+                    {/* NAVBAR*/}
+                    <div className="d-flex justify-content-between align-items-center mb-3" >
+                        <h3 className="mb-0">OrientaTCC</h3>
+                        <div className="d-flex align-items-center">
+                            <span className="me-2" style={{ fontSize: "25px" }}>Ana Maria</span>
+                            <div className="dropdown">
+                                <img
+                                    src={meuIcone}
+                                    className="dropdown-toggle"
+                                    role="button"
+                                    id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    style={{
+                                        width: "45px",
+                                        height: "45px",
+                                        borderRadius: "50%",
+                                        cursor: "pointer",
+                                        backgroundColor: "#e9f1ff", 
+                                        padding: "4px"
+                                    }}
+                                />
+                                <ul
+                                    className="dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="dropdownMenuButton"
+                                >
+                                    <li><a className="dropdown-item" href="/atividadeDoAluno">Conta</a></li>
+                                    <li><a className="dropdown-item" href="/login">Sair</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
+
+                    {/* LINHA DIVISÓRIA */}
+                    <hr style={{ border: "1px solid black", margin: "0 0 20px 0" }} />
+
+                    
+                    <h3 className="text-center mb-4" style={{ marginTop: "38px" }}>Meu trabalho Acadêmico</h3>
+
+                    {/* CARD DO TRABALHO */}
+                    <div className="p-3 mb-4 rounded" style={{ backgroundColor: "#e6f4ff" }}>
+                        <p className="mb-2">
+                            <strong>Tema:</strong> a volta dos que não foram
+                        </p>
+                        <p className="mb-2">
+                            <strong>Orientador:</strong> Damião
+                        </p>
+                        <p className="mb-0">
+                            <strong>Data de criação:</strong> 18/02/2040
+                        </p>
+                    </div>
+
+        
+                    <button
+                        onClick={rotaParaEntrar}
+                        style={{
+                            width: "100%",           
+                            padding: "10px 0",       
+                            fontSize: "16px",        
+                            borderRadius: "8px",     
+                            border: "none",
+                            backgroundColor: "#4a90e2", // azul elegante
+                            color: "white",
+                            fontWeight: "600",
+                            boxShadow: "0 4px 10px rgba(74,144,226,0.4)", // sombra azulada para destacar
+                            cursor: "pointer",
+                            transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = "#357ABD";
+                            e.target.style.boxShadow = "0 6px 14px rgba(53,122,189,0.6)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = "#4a90e2";
+                            e.target.style.boxShadow = "0 4px 10px rgba(74,144,226,0.4)";
+                        }}
+                    >
+                        Acessar
+                    </button>
                 </div>
             </div>
-
         </>
     );
 }
 
-export default trabalhoAcademico;
+export default TrabalhoAcademico;

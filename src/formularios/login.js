@@ -3,12 +3,12 @@ function login(){
   function rotaParaEntrar(e) {
         e.preventDefault();
 
-        // Se os campos estão válidos, redireciona
+        
         const form = e.target;
-        if (form.checkValidity()) {//é um método nativo do HTML que verifica se todos os campos do formulário que têm validação (ex: required, type="email", etc.) estão preenchidos corretamente.
+        if (form.checkValidity()) {
         window.location.href = "/atividadeDoAluno";
         } else {
-        form.reportValidity(); // mostra os erros na tela
+        form.reportValidity(); 
         }
     }
 
