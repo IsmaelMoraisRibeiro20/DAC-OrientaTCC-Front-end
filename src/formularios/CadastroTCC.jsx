@@ -1,24 +1,21 @@
-
 import { useNavigate } from 'react-router-dom';
 
-function cadastroTcc() {
-     const navegar = useNavigate();
+const CadastroTcc = () => {
+    const navegar = useNavigate();
 
-    function buttonVoltar(){
-       
-        navegar('/atividadeDoAluno')
+    function buttonVoltar() {
+        navegar('/principalDoAluno')
 
     }
 
     function rotaParaCadastrar(e) {
         e.preventDefault();
 
-        
         const form = e.target;
         if (form.checkValidity()) {
             window.location.href = "/trabalhoAcademico";
         } else {
-            form.reportValidity(); 
+            form.reportValidity();
         }
     }
 
@@ -67,7 +64,7 @@ function cadastroTcc() {
                         </div>
 
                         <div className="d-flex justify-content-between" style={{ padding: "0 2px" }}>
-                            <button  type="button" className="btn btn-secondary " style={{ width: "220px" }} onClick={buttonVoltar}>
+                            <button type="button" className="btn btn-secondary " style={{ width: "220px" }} onClick={buttonVoltar}>
                                 Voltar
                             </button>
 
@@ -79,8 +76,7 @@ function cadastroTcc() {
                 </div>
             </div>
 
-
         </>
     )
 }
-export default cadastroTcc;
+export default CadastroTcc;

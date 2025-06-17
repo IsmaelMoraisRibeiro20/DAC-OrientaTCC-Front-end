@@ -1,30 +1,28 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import Cadastro from './formularios/cadastro';
-import Login from './formularios/login';
-import CadastroTcc from './formularios/cadastroTCC';
-import AtividadeDoAluno from './paginas/atividadeDoAluno';
-import TrabalhoAcademico from './paginas/thabalhoAcademico';
-import AdicionarTrabalhoDoTcc from './paginas/adicionarTrabalhoDoTcc';
-
-
-
+import Login from './formularios/Login.jsx';
+import PrincipalDoAluno from './paginas/aluno/PrincipalDoAluno'
+import CadastroUsuario from './formularios/CadastroUsuario.jsx';
+import CadastroTcc from './formularios/CadastroTCC.jsx';
+import AdicionarTrabalhoDoTcc from './paginas/aluno/AdicionarTrabalhoDoTcc.jsx';
+import ListaAtividadesAluno from './paginas/aluno/ListaAtividadesAluno.jsx';
+import PrincipalDoOrientador from './paginas/orientador/PrincipalDoOrientador.jsx';
 
 function App() {
-
-
   return (
     <>
-     
-     <BrowserRouter>
-      <Routes>
-        <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/atividadeDoAluno" element={<AtividadeDoAluno />} />
-        <Route path="/cadastroTCC" element={<CadastroTcc />} />
-        <Route path="/trabalhoAcademico" element={<TrabalhoAcademico />} />
-        <Route path="/adicionarTrabalhoDoTcc" element={<AdicionarTrabalhoDoTcc />} />
-      </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/cadastro" element={<CadastroUsuario />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/principalDoAluno" element={<PrincipalDoAluno />} />
+          <Route path="/cadastroTCC" element={<CadastroTcc />} />
+          <Route path="/listaAtividadesAluno" element={<ListaAtividadesAluno />} />
+          <Route path="/adicionarTrabalhoDoTcc" element={<AdicionarTrabalhoDoTcc />} />
+
+
+          <Route path="/principalDoOrientador" element={<PrincipalDoOrientador />} />
+
+        </Routes>
       </BrowserRouter>
     </>
   );

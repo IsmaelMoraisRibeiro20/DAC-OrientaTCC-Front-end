@@ -1,6 +1,5 @@
+const CadastroUsuario = () => {
 
-function cadastro(){
-  
   function rotaParaLogin(e) {
     e.preventDefault();
 
@@ -13,14 +12,14 @@ function cadastro(){
     }
   }
 
-  
 
-return(
+
+  return (
     <>
       <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
         <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }} >
           <h3 className="text-center mb-4">Formulário de Cadastro</h3>
-          
+
           <form onSubmit={rotaParaLogin}>
             <div className="mb-3">
               <label htmlFor="matricula" className="form-label">
@@ -108,7 +107,7 @@ return(
         </div>
       </div>
     </>
-);
+  );
 
 }
-export default cadastro;
+export default CadastroUsuario;

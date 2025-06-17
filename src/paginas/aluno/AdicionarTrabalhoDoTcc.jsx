@@ -1,8 +1,8 @@
-
 import React, { useRef, useState } from "react";
-import meuIcone from "../icones/usuario.png";
+import NavBar from "../../componentes/NavBar";
+import { CiTrash } from "react-icons/ci";
 
-function AdicionarTrabalhoDoTcc() {
+const AdicionarTrabalhoDoTcc = () => {
     const [fileName, setFileName] = useState("");
     const [fileURL, setFileURL] = useState("");
 
@@ -30,86 +30,34 @@ function AdicionarTrabalhoDoTcc() {
 
     return (
         <>
-            <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light p-4">
+            <div className="d-flex justify-content-center bg-light" style={{ padding: "60px 20px" }}>
                 <div
                     className="card shadow p-4 w-100"
                     style={{
-                        maxWidth: "1200px",
-                        height: "auto",
+                        maxWidth: "1100px",
                         display: "flex",
                         flexDirection: "column",
+                        borderRadius: "12px",
                     }}
                 >
-                    {/* NAVBAR */}
-                    <nav
-                        className="navbar navbar-expand-lg w-100"
-                        style={{
-                            backgroundColor: "#f5f3f4",
-                            padding: "1rem 1.5rem",
-                            marginBottom: "25px",
-                            borderBottom: "2px solid black",
-                            borderRadius: "8px 8px 0 0",
-                        }}
-                    >
-                        <div className="container-fluid d-flex justify-content-between align-items-center">
-                            <h2 className="m-0">OrientaTCC</h2>
-
-                            <div className="d-flex align-items-center">
-                                <h5 className="me-3 d-none d-md-block">Ana Maria</h5>
-                                <div className="dropdown">
-                                    <img
-                                        src={meuIcone}
-                                        className="dropdown-toggle"
-                                        role="button"
-                                        id="dropdownMenuButton"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        style={{
-                                            width: "45px",
-                                            height: "45px",
-                                            borderRadius: "50%",
-                                            cursor: "pointer",
-                                            backgroundColor: "#e9f1ff",
-                                            padding: "5px",
-                                        }}
-                                    />
-                                    <ul
-                                        className="dropdown-menu dropdown-menu-end"
-                                        aria-labelledby="dropdownMenuButton"
-                                    >
-                                        <li>
-                                            <a className="dropdown-item" href="/atividadeDoAluno">Conta</a>
-                                        </li>
-                                        <li>
-                                            <a className="dropdown-item" href="/trabalhoAcademico">Voltar</a>
-                                        </li>
-                                        <li>
-                                            <a className="dropdown-item" href="/login">Sair</a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-
+                    <NavBar />
 
                     <div
                         className="d-flex flex-wrap justify-content-center"
-                        style={{ maxWidth: "1200px", margin: "0 auto" }}
+                        style={{ maxWidth: "1100px", margin: "0 auto", gap: "20px" }}
                     >
                         {/* CARD GRANDE */}
                         <div
-                            className="card mb-3"
+                            className="card mb-3 flex-grow-1"
                             style={{
-                                flex: "1 1 750px",
-                                marginRight: "20px",
-                                minHeight: "550px",
+                                minWidth: "300px",
+                                flex: "1 1 650px",
                                 padding: "20px",
+                                borderRadius: "10px",
                             }}
                         >
                             <div className="card-body">
-                                <div className="d-flex justify-content-between align-items-start">
+                                <div className="d-flex justify-content-between flex-wrap">
                                     <h4 className="card-title" style={{ fontSize: "1.8rem", fontWeight: "bold" }}>
                                         Nome da atividade
                                     </h4>
@@ -123,7 +71,7 @@ function AdicionarTrabalhoDoTcc() {
                                 <p style={{ fontSize: "1.1rem", lineHeight: "1.8" }}>
                                     <strong>COMO FAZER?</strong> Componham equipes considerando os softwares definidos nas disciplinas de Projeto I e Projeto II, que possuam features (mesmo que em parte) funcionais e viáveis para avaliação de usabilidade.
                                     <br />
-                                    Faça a imersão no produto considerando features a serem categorizadas com a técnica de <strong>CARD SORTING</strong>. Em seguida, descreva jornadas do usuário com a técnica de <strong>JOURNEY MAP</strong>, a fim de revelar armadilhas e momentos importantes do usuário na interação ou experiência com o produto (da aquisição até o seu engajamento).
+                                    Faça a imersão no produto considerando features a serem categorizadas com a técnica de <strong>CARD SORTING</strong>. Em seguida, descreva jornadas do usuário com a técnica de <strong>JOURNEY MAP</strong>, a fim de revelar armadilhas e momentos importantes do usuário na interação ou experiência com o produto.
                                 </p>
 
                                 <div className="mb-3 mt-4" style={{ maxWidth: "650px", fontWeight: "bold" }}>
@@ -133,7 +81,7 @@ function AdicionarTrabalhoDoTcc() {
                                     <textarea
                                         className="form-control"
                                         id="exampleFormControlTextarea1"
-                                        rows="6"
+                                        rows="5"
                                         placeholder="Adicione um comentário"
                                         style={{ fontSize: "1rem" }}
                                     ></textarea>
@@ -146,9 +94,10 @@ function AdicionarTrabalhoDoTcc() {
                             className="card"
                             style={{
                                 width: "350px",
-                                minHeight: "300px",
+                                minHeight: "280px", // altura menor que o card principal
                                 alignSelf: "flex-start",
                                 padding: "20px",
+                                flexShrink: 0, // impede de diminuir demais
                             }}
                         >
                             <div className="card-body">
@@ -156,9 +105,9 @@ function AdicionarTrabalhoDoTcc() {
                                     Seu trabalho
                                 </h4>
 
-                                {/* Se tiver arquivo selecionado, exibe o nome e os botões */}
+                                {/* Conteúdo do arquivo */}
                                 {fileName && (
-                                    <div className="mt-3">
+                                    <div className="mt-3 d-flex ">
                                         <p><strong>Arquivo selecionado:</strong></p>
                                         <a
                                             href={fileURL}
@@ -175,15 +124,27 @@ function AdicionarTrabalhoDoTcc() {
                                             {fileName}
                                         </a>
                                         <button
-                                            className="btn btn-primary btn-sm "
                                             onClick={handleCancel}
-                                            style={{width: "100%", backgroundColor: "red"}}
+                                            title="Remover arquivo"
+                                            style={{
+                                                backgroundColor: "transparent",
+                                                border: "none",
+                                                color: "red",
+                                                fontWeight: "bold",
+                                                fontSize: "18px",
+                                                cursor: "pointer",
+                                                padding: "0",
+                                                lineHeight: "1",
+                                                marginBottom: "18px"
+                                            }}
                                         >
-                                            Remover Arquivo
+                                            <CiTrash size={25}/>
                                         </button>
                                     </div>
                                 )}
-                                <div className="d-grid gap-3" style={{ marginTop: "35px" }}>
+
+                                {/* Botões */}
+                                <div className="d-grid gap-3" style={{ marginTop: "20px" }}>
                                     <button
                                         className="btn"
                                         style={{
@@ -200,7 +161,6 @@ function AdicionarTrabalhoDoTcc() {
                                         + Adicionar ou criar
                                     </button>
 
-                                    {/*Esse input vai ficar invisivel, logica para conseguir abri os arquivos do pc*/}
                                     <input
                                         type="file"
                                         ref={fileInputRef}
