@@ -30,7 +30,6 @@ const PrincipalDoAluno = () => {
                 >
 
                     <NavBar />{/*Vai ser usado em mais de um local, deiar como componente*/}
-                    <hr style={{ border: "1px solid black", margin: "0 0 20px 0" }} />
 
                     {atividade ? (
                         //Renderiza esse caso aluno TENHA atividade

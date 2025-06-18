@@ -1,34 +1,13 @@
 import React from 'react'
 import NavBar from '../../componentes/NavBar'
 
-const ListaAtividadesAluno = () => {
-    const atividades = [
-        {
-            id: 1,
-            titulo: "Atividade 1: Introdução ao React",
-            descricao: "Leia os conceitos básicos e crie seu primeiro componente.",
-            dataEntrega: "2025-06-25",
-            entregue: false,
-        },
-        {
-            id: 2,
-            titulo: "Atividade 2: Estados e Props",
-            descricao: "Pratique estados e props em componentes funcionais.",
-            dataEntrega: "2025-06-28",
-            entregue: true,
-        },
-        {
-            id: 3,
-            titulo: "Atividade 3: Hooks",
-            descricao: "Implemente useState e useEffect em um projeto simples.",
-            dataEntrega: "2025-07-02",
-            entregue: false,
-        },
-    ];
+const ListaAtividadesOrientador = () => {
 
-    function rotaParaEntrarNaAtividadeAluno(e) {
+    const atividades = []
+
+    function rotaParaEntrarNaAtividadeOrientador(e) {
         e.preventDefault();
-        window.location.href = "/adicionarTrabalhoDoTcc";
+        window.location.href = "/atividadeOrientador";
     }
 
     return (
@@ -46,12 +25,36 @@ const ListaAtividadesAluno = () => {
                     <NavBar />
 
                     <div className="container my-4" style={{ maxWidth: "700px" }}>
-                        <h2 className="mb-4">Atividades</h2>
+                        <div className='d-flex justify-content-between align-items-center'>
+                            <h2 className="">Atividades</h2>
+                            <button
+                                style={{
+                                    marginTop: "0",
+                                    padding: "10px 20px",
+                                    fontSize: "14px",
+                                    borderRadius: "8px",
+                                    border: "none",
+                                    backgroundColor: "#4a90e2",
+                                    color: "white",
+                                    fontWeight: "600",
+                                    boxShadow: "0 4px 10px rgba(74,144,226,0.4)",
+                                    cursor: "pointer",
+                                    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+                                    marginBottom: "0"
+                                }}
+                                onClick={rotaParaEntrarNaAtividadeOrientador}
+                            >
+                                Adicionar Atividade
+                            </button>
+                        </div>
+
+
 
                         {atividades.length === 0 ? (
                             <div
                                 className="alert alert-info"
                                 style={{
+                                    marginTop: "10px",
                                     padding: "20px",
                                     borderRadius: "8px",
                                     backgroundColor: "#e9f5ff",
@@ -60,7 +63,7 @@ const ListaAtividadesAluno = () => {
                                     textAlign: "center",
                                 }}
                             >
-                                Nenhuma atividade foi cadastrada ainda. Aguarde o professor adicionar.
+                                Nenhuma atividade foi cadastrada ainda.
                             </div>
                         ) : (
                             <ul className="list-group">
@@ -75,7 +78,7 @@ const ListaAtividadesAluno = () => {
                                             cursor: "pointer",
                                             transition: "background-color 0.3s",
                                         }}
-                                        onClick={rotaParaEntrarNaAtividadeAluno}
+                                        // onClick={}
                                         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#e9ecef")}
                                         onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#f8f9fa")}
                                     >
@@ -113,4 +116,4 @@ const ListaAtividadesAluno = () => {
     )
 }
 
-export default ListaAtividadesAluno
+export default ListaAtividadesOrientador

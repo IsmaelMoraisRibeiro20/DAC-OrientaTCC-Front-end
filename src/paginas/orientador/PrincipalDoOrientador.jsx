@@ -3,6 +3,11 @@ import NavBar from '../../componentes/NavBar';
 
 const PrincipalDoOrientador = () => {
 
+    function rotaParaEntrarNaAtividadeOrientador(e) {
+        e.preventDefault();
+        window.location.href = "/listaAtividadesOrientador";
+    }
+
     const tccs = [
         {
             id: 1,
@@ -38,7 +43,6 @@ const PrincipalDoOrientador = () => {
                     }}
                 >
                     <NavBar />
-                    <hr style={{ border: "1px solid black", margin: "0 0 20px 0" }} />
 
                     {tccs.length > 0 ? (
                         <>
@@ -112,6 +116,7 @@ const PrincipalDoOrientador = () => {
                                                     cursor: "pointer",
                                                     transition: "background-color 0.3s ease, box-shadow 0.3s ease",
                                                 }}
+                                                onClick={rotaParaEntrarNaAtividadeOrientador}
                                                 onMouseEnter={(e) => {
                                                     e.target.style.backgroundColor = "#357ABD";
                                                     e.target.style.boxShadow = "0 6px 14px rgba(53,122,189,0.6)";
