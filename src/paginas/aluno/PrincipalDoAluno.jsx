@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../../componentes/NavBar";
+import { Button, Modal } from "react-bootstrap";
 
 const PrincipalDoAluno = () => {
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const confirmarExclusao = () => {
+        alert("Item excluído!");
+        handleClose();
+    };
+
     const atividade = true;
+
 
     function rotaParaCadastrarTCC(e) {
         e.preventDefault();
@@ -29,7 +41,7 @@ const PrincipalDoAluno = () => {
                     }}
                 >
 
-                    <NavBar />{/*Vai ser usado em mais de um local, deiar como componente*/}
+                    <NavBar />
 
                     {atividade ? (
                         //Renderiza esse caso aluno TENHA atividade
@@ -46,7 +58,7 @@ const PrincipalDoAluno = () => {
                                     maxWidth: "500px",
                                     borderRadius: "12px",
                                     padding: "20px",
-                                    border: "1px solid #cce6ff", 
+                                    border: "1px solid #cce6ff",
                                 }}
                             >
                                 <h5
@@ -63,17 +75,62 @@ const PrincipalDoAluno = () => {
                                     <strong>Data de criação:</strong> 18/02/2040
                                 </p>
 
-                                <div className="d-flex justify-content-center ">
+                                <div className="d-flex justify-content-between mt-4">
+                                    <button
+                                        onClick={handleShow}
+                                        style={{
+                                            width: "200px",
+                                            padding: "10px 0px",
+                                            fontSize: "16px",
+                                            borderRadius: "8px",
+                                            border: "none",
+                                            backgroundColor: "#e74c3c",
+                                            color: "white",
+                                            fontWeight: "600",
+                                            boxShadow: "0 4px 10px rgba(231, 76, 60, 0.4)",
+                                            cursor: "pointer",
+                                            transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.target.style.backgroundColor = "#c0392b";
+                                            e.target.style.boxShadow =
+                                                "0 6px 14px rgba(192, 57, 43, 0.6)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.target.style.backgroundColor = "#e74c3c";
+                                            e.target.style.boxShadow =
+                                                "0 4px 10px rgba(231, 76, 60, 0.4)";
+                                        }}
+                                    >
+                                        Excluir
+                                    </button>
+
+                                    <Modal show={show} onHide={handleClose} centered>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Confirmação</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            Tem certeza que deseja excluir?
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={handleClose}>
+                                                Cancelar
+                                            </Button>
+                                            <Button variant="danger" onClick={confirmarExclusao}>
+                                                Confirmar
+                                            </Button>
+                                        </Modal.Footer>
+                                    </Modal>
+
                                     <button
                                         onClick={rotaParaEntrarNoTCC}
                                         style={{
                                             width: "200px",
-                                            marginTop: "7px",
-                                            padding: "10px 0",
+                                            padding: "10px 0px",
                                             fontSize: "16px",
                                             borderRadius: "8px",
                                             border: "none",
-                                            backgroundColor: "#4a90e2", 
+                                            backgroundColor: "#4a90e2",
                                             color: "white",
                                             fontWeight: "600",
                                             boxShadow: "0 4px 10px rgba(74,144,226,0.4)",

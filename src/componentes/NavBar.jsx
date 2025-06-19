@@ -52,7 +52,6 @@ const NavBar = () => {
                                 className="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="dropdownMenuButton"
                             >
-                                {/* <li><a className="dropdown-item" href="/trabalhoAcademico">TrabalhoAcademico</a></li> ISSO AQUI SAI */}
                                 <li><a className="dropdown-item" href="/login">Sair</a></li>
                             </ul>
                         </div>

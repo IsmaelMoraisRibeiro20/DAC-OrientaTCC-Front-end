@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from '../../componentes/NavBar';
+import { Button, Modal } from "react-bootstrap";
 
 const PrincipalDoOrientador = () => {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const confirmarExclusao = () => {
+        alert("Item excluído!");
+        handleClose();
+    };
 
     function rotaParaEntrarNaAtividadeOrientador(e) {
         e.preventDefault();
@@ -83,11 +93,8 @@ const PrincipalDoOrientador = () => {
                                         <h6
                                             className="mb-2 text-start"
                                             style={{ fontWeight: "600", color: "#333", fontSize: "1rem" }}
-                                            title={tcc.titulo}
                                         >
-                                            {tcc.titulo.length > 45
-                                                ? tcc.titulo.slice(0, 42) + "..."
-                                                : tcc.titulo}
+                                            {tcc.titulo}
                                         </h6>
 
                                         <p
@@ -100,11 +107,58 @@ const PrincipalDoOrientador = () => {
                                             <strong>Criado em:</strong>{" "}
                                             {new Date(tcc.dataCriacao).toLocaleDateString()}
                                         </p>
-                                        <div className="d-flex justify-content-center ">
+                                        <div className="d-flex justify-content-between ">
+                                            <button
+                                                onClick={handleShow}
+                                                style={{
+                                                    width: "50%",
+                                                    margin: "10px 8px 0 0",
+                                                    padding: "10px 0px",
+                                                    fontSize: "16px",
+                                                    borderRadius: "8px",
+                                                    border: "none",
+                                                    backgroundColor: "#e74c3c",
+                                                    color: "white",
+                                                    fontWeight: "600",
+                                                    boxShadow: "0 4px 10px rgba(231, 76, 60, 0.4)",
+                                                    cursor: "pointer",
+                                                    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.backgroundColor = "#c0392b";
+                                                    e.target.style.boxShadow =
+                                                        "0 6px 14px rgba(192, 57, 43, 0.6)";
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.backgroundColor = "#e74c3c";
+                                                    e.target.style.boxShadow =
+                                                        "0 4px 10px rgba(231, 76, 60, 0.4)";
+                                                }}
+                                            >
+                                                Excluir
+                                            </button>
+
+                                            <Modal show={show} onHide={handleClose} centered>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Confirmação</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    Tem certeza que deseja excluir <strong>{tcc.titulo}</strong>?
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleClose}>
+                                                        Cancelar
+                                                    </Button>
+                                                    <Button variant="danger" onClick={confirmarExclusao}>
+                                                        Confirmar
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+
                                             <button
                                                 style={{
-                                                    width: "100%",       // ocupa toda a largura do card
-                                                    marginTop: "10px",
+                                                    width: "50%",
+                                                    margin: "10px 8px 0 0",
                                                     padding: "10px 0",
                                                     fontSize: "14px",
                                                     borderRadius: "8px",
