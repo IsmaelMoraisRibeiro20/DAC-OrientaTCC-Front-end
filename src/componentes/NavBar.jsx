@@ -3,9 +3,12 @@ import { BsPersonCircle } from 'react-icons/bs'
 
 const NavBar = () => {
 
+    const usuario = {
+        tipo: "coordenador"
+    }
+
     return (
         <>
-
             <div
                 className="navbar navbar-expand-lg w-100"
                 style={{
@@ -52,6 +55,12 @@ const NavBar = () => {
                                 className="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="dropdownMenuButton"
                             >
+                                {/* Quando for para a tela de cadastro manda o usuarioo coooordenador
+                                    para que quando ele salve ele seja redirecionadoo para a pagina principal
+                                    e nao a de login */ }
+                                {usuario.tipo == "coordenador" && (
+                                    <li><a className="dropdown-item" href="/cadastro">Adicionar Professor</a></li>
+                                )}
                                 <li><a className="dropdown-item" href="/login">Sair</a></li>
                             </ul>
                         </div>

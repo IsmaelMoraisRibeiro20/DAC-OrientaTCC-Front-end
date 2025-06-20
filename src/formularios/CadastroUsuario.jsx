@@ -1,4 +1,10 @@
+import React, { useState } from 'react';
+
 const CadastroUsuario = () => {
+
+  const coordenador = true // Se esse valor fr verdadeiro altera o nome do bootao de ENTRAR para SALVAR
+
+  const [tipoUsuario, setTipoUsuario] = useState('');
 
   function rotaParaLogin(e) {
     e.preventDefault();
@@ -12,7 +18,9 @@ const CadastroUsuario = () => {
     }
   }
 
-
+  const handleTipoUsuarioChange = (e) => {
+    setTipoUsuario(e.target.value);
+  };
 
   return (
     <>
@@ -21,18 +29,35 @@ const CadastroUsuario = () => {
           <h3 className="text-center mb-4">Formulário de Cadastro</h3>
 
           <form onSubmit={rotaParaLogin}>
-            <div className="mb-3">
-              <label htmlFor="matricula" className="form-label">
-                Matrícula/Siape
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="matricula"
-                placeholder="Digite sua matrícula ou SIAPE"
-                required
-              />
-            </div>
+
+            {tipoUsuario === "professor" ? (
+              <div className="mb-3">
+                <label htmlFor="siape" className="form-label">
+                  SIAPE
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="siape"
+                  placeholder="Digite seu SIAPE"
+                  required
+                />
+              </div>
+            ) : (
+              <div className="mb-3">
+                <label htmlFor="matricula" className="form-label">
+                  Matrícula
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="matricula"
+                  placeholder="Digite sua matrícula"
+                  required
+                />
+              </div>
+            )}
+
 
             <div className="mb-3">
               <label htmlFor="nome" className="form-label">
@@ -74,6 +99,22 @@ const CadastroUsuario = () => {
               />
             </div>
 
+            {/* Área de Atuação aparece apenas se for professor */}
+            {tipoUsuario === "professor" && (
+              <div className="mb-3">
+                <label htmlFor="area" className="form-label">
+                  Área de Atuação
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="area"
+                  placeholder="Digite sua área de atuação"
+                  required={tipoUsuario === "professor"}
+                />
+              </div>
+            )}
+
             <div className="mb-4">
               <label className="form-label d-block">Tipo de usuário</label>
               <div className="form-check form-check-inline me-5">
@@ -83,6 +124,9 @@ const CadastroUsuario = () => {
                   name="tipoUsuario"
                   id="aluno"
                   value="aluno"
+                  onChange={handleTipoUsuarioChange}
+                  checked={tipoUsuario === "aluno"}                 
+                  disabled={coordenador ? true : false}
                   required
                 />
                 <label className="form-check-label" htmlFor="aluno">Aluno</label>
@@ -94,20 +138,53 @@ const CadastroUsuario = () => {
                   name="tipoUsuario"
                   id="professor"
                   value="professor"
+                  onChange={handleTipoUsuarioChange}
+                  checked={tipoUsuario === "professor"}
                   required
                 />
                 <label className="form-check-label" htmlFor="professor">Professor</label>
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary w-100" >
-              Entrar
+            {/* Permissão aparece apenas se for professor */}
+            {tipoUsuario === "professor" && (
+              <div className="mb-4">
+                <label className="form-label d-block">Permissão</label>
+                <div className="form-check form-check-inline me-5">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="permissao"
+                    id="orientador"
+                    value="orientador"
+                    required={tipoUsuario === "professor"}
+                  />
+                  <label className="form-check-label" htmlFor="orientador">Orientador</label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="permissao"
+                    id="coordenador"
+                    value="coordenador"
+                    required={tipoUsuario === "professor"}
+                  />
+                  <label className="form-check-label" htmlFor="coordenador">Coordenador</label>
+                </div>
+              </div>
+            )}
+
+
+            <button type="submit" className="btn btn-primary w-100">
+              {coordenador ? "Salvar" : "Entrar"}
             </button>
+
           </form>
         </div>
       </div>
     </>
   );
+};
 
-}
 export default CadastroUsuario;

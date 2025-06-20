@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './formularios/Login.jsx';
 import PrincipalDoAluno from './paginas/aluno/PrincipalDoAluno'
 import CadastroUsuario from './formularios/CadastroUsuario.jsx';
@@ -14,6 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Navigate to="/cadastro" />} />
           <Route path="/cadastro" element={<CadastroUsuario />} />
           <Route path="/login" element={<Login />} />
 
