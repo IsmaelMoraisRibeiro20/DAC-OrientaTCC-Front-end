@@ -59,7 +59,11 @@ const NavBar = () => {
                                     para que quando ele salve ele seja redirecionadoo para a pagina principal
                                     e nao a de login */ }
                                 {usuario.tipo == "coordenador" && (
-                                    <li><a className="dropdown-item" href="/cadastro">Adicionar Professor</a></li>
+                                    <>
+                                        <li><a className="dropdown-item" href="/listarOrientador">Gerenciar Orientadores</a></li>
+                                        <li><a className="dropdown-item" href="/listarAluno">Listar Alunos</a></li>
+                                    </>
+
                                 )}
                                 <li><a className="dropdown-item" href="/login">Sair</a></li>
                             </ul>

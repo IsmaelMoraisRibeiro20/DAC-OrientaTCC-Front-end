@@ -68,8 +68,29 @@ Faça a imersão no produto considerando features a serem categorizadas com a t�
                                             className="form-control"
                                             style={{ fontSize: "1.8rem", fontWeight: "bold", border: "none", padding: "0" }}
                                         />
-                                        <p style={{ margin: "5px 0", color: status === "Concluído" ? "green" : "orange", fontWeight: "600" }}>
-                                            Status: {status}
+                                        <p style={{ margin: "5px 0", fontWeight: "600" }}>
+                                            Status:
+                                            <select
+                                                value={status}
+                                                onChange={(e) => setStatus(e.target.value)}
+                                                className="form-select"
+                                                style={{
+                                                    fontSize: "1rem",
+                                                    fontWeight: "600",
+                                                    marginLeft: "5px",
+                                                    color:
+                                                        status === "Aprovado"
+                                                            ? "green"
+                                                            : status === "Pendente"
+                                                            ? "orange"
+                                                            : "gray"
+
+                                                }}
+                                            >
+                                                <option value="Pendente" style={{ color: "orange" }}>Pendente</option>
+                                                <option value="Aprovado" style={{ color: "green" }}>Aprovado</option>
+                                                <option value="Em andamento" style={{ color: "gray" }}>Em andamento</option>
+                                            </select>
                                         </p>
                                     </div>
 
@@ -84,6 +105,7 @@ Faça a imersão no produto considerando features a serem categorizadas com a t�
                                         />
                                     </div>
                                 </div>
+
 
                                 <hr style={{ border: "1px solid black", margin: "15px 0 25px 0" }} />
 

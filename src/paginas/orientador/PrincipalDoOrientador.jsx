@@ -62,6 +62,16 @@ const PrincipalDoOrientador = () => {
                             >
                                 Trabalhos de Conclusão de Curso
                             </h2>
+
+                            <div className="d-flex justify-content-center mb-2">
+                                <input
+                                    type="text"
+                                    className="form-control w-50"
+                                    placeholder="Digite o nome do trabalho ou do aluno"
+                                />
+                            </div>
+
+
                             <div
                                 style={{
                                     display: "flex",
@@ -80,6 +90,7 @@ const PrincipalDoOrientador = () => {
                                             backgroundColor: "#e6f4ff",
                                             borderRadius: "10px",
                                             padding: "15px",
+                                            marginTop: "13px",
                                             border: "1px solid #cce6ff",
                                             width: "calc(33% - 15px)",
                                             boxSizing: "border-box",
