@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
+import { Container, Card, Form, Button } from 'react-bootstrap';
 
 const CadastroUsuario = () => {
 
-  const coordenador = true // Se esse valor fr verdadeiro altera o nome do bootao de ENTRAR para SALVAR
+  const coordenador = true; // Altera o nome do botão se verdadeiro
 
   const [tipoUsuario, setTipoUsuario] = useState('');
 
   function rotaParaLogin(e) {
     e.preventDefault();
-
-    // Se os campos estão válidos, redireciona
     const form = e.target;
-    if (form.checkValidity()) {//é um método nativo do HTML que verifica se todos os campos do formulário que têm validação (ex: required, type="email", etc.) estão preenchidos corretamente.
+    if (form.checkValidity()) {
       window.location.href = "/login";
     } else {
-      form.reportValidity(); // mostra os erros na tela
+      form.reportValidity();
     }
   }
 
@@ -23,167 +22,132 @@ const CadastroUsuario = () => {
   };
 
   return (
-    <>
-      <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-        <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }} >
-          <h3 className="text-center mb-4">Formulário de Cadastro</h3>
+    <Container className="d-flex justify-content-center align-items-center vh-100 bg-light">
+      <Card className="shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
+        <h3 className="text-center mb-4">Formulário de Cadastro</h3>
 
-          <form onSubmit={rotaParaLogin}>
+        <Form onSubmit={rotaParaLogin}>
 
-            {tipoUsuario === "professor" ? (
-              <div className="mb-3">
-                <label htmlFor="siape" className="form-label">
-                  SIAPE
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="siape"
-                  placeholder="Digite seu SIAPE"
-                  required
-                />
-              </div>
-            ) : (
-              <div className="mb-3">
-                <label htmlFor="matricula" className="form-label">
-                  Matrícula
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="matricula"
-                  placeholder="Digite sua matrícula"
-                  required
-                />
-              </div>
-            )}
-
-
-            <div className="mb-3">
-              <label htmlFor="nome" className="form-label">
-                Nome
-              </label>
-              <input
+          {/* Matrícula ou SIAPE */}
+          {tipoUsuario === "professor" ? (
+            <Form.Group className="mb-3" controlId="siape">
+              <Form.Label>SIAPE</Form.Label>
+              <Form.Control
                 type="text"
-                className="form-control"
-                id="nome"
-                placeholder="Digite seu nome"
+                placeholder="Digite seu SIAPE"
+                required
+              />
+            </Form.Group>
+          ) : (
+            <Form.Group className="mb-3" controlId="matricula">
+              <Form.Label>Matrícula</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite sua matrícula"
+                required
+              />
+            </Form.Group>
+          )}
+
+          <Form.Group className="mb-3" controlId="nome">
+            <Form.Label>Nome</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Digite seu nome"
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Digite seu email"
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="senha">
+            <Form.Label>Senha</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Digite sua senha"
+              required
+              minLength={6}
+            />
+          </Form.Group>
+
+          {/* Área de Atuação (somente para professor) */}
+          {tipoUsuario === "professor" && (
+            <Form.Group className="mb-3" controlId="area">
+              <Form.Label>Área de Atuação</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite sua área de atuação"
+                required
+              />
+            </Form.Group>
+          )}
+
+          {/* Tipo de usuário */}
+          <Form.Group className="mb-4">
+            <Form.Label>Tipo de usuário</Form.Label>
+            <div className="d-flex gap-4">
+              <Form.Check
+                type="radio"
+                label="Aluno"
+                name="tipoUsuario"
+                id="aluno"
+                value="aluno"
+                onChange={handleTipoUsuarioChange}
+                checked={tipoUsuario === "aluno"}
+                disabled={coordenador}
+                required
+              />
+              <Form.Check
+                type="radio"
+                label="Professor"
+                name="tipoUsuario"
+                id="professor"
+                value="professor"
+                onChange={handleTipoUsuarioChange}
+                checked={tipoUsuario === "professor"}
                 required
               />
             </div>
+          </Form.Group>
 
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Digite seu email"
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="senha" className="form-label">
-                Senha
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="senha"
-                placeholder="Digite sua senha"
-                required
-                minLength={6}
-              />
-            </div>
-
-            {/* Área de Atuação aparece apenas se for professor */}
-            {tipoUsuario === "professor" && (
-              <div className="mb-3">
-                <label htmlFor="area" className="form-label">
-                  Área de Atuação
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="area"
-                  placeholder="Digite sua área de atuação"
-                  required={tipoUsuario === "professor"}
-                />
-              </div>
-            )}
-
-            <div className="mb-4">
-              <label className="form-label d-block">Tipo de usuário</label>
-              <div className="form-check form-check-inline me-5">
-                <input
-                  className="form-check-input"
+          {/* Permissão (somente para professor) */}
+          {tipoUsuario === "professor" && (
+            <Form.Group className="mb-4">
+              <Form.Label>Permissão</Form.Label>
+              <div className="d-flex gap-4">
+                <Form.Check
                   type="radio"
-                  name="tipoUsuario"
-                  id="aluno"
-                  value="aluno"
-                  onChange={handleTipoUsuarioChange}
-                  checked={tipoUsuario === "aluno"}                 
-                  disabled={coordenador ? true : false}
+                  label="Orientador"
+                  name="permissao"
+                  id="orientador"
+                  value="orientador"
                   required
                 />
-                <label className="form-check-label" htmlFor="aluno">Aluno</label>
-              </div>
-              <div className="form-check form-check-inline">
-                <input
-                  className="form-check-input"
+                <Form.Check
                   type="radio"
-                  name="tipoUsuario"
-                  id="professor"
-                  value="professor"
-                  onChange={handleTipoUsuarioChange}
-                  checked={tipoUsuario === "professor"}
+                  label="Coordenador"
+                  name="permissao"
+                  id="coordenador"
+                  value="coordenador"
                   required
                 />
-                <label className="form-check-label" htmlFor="professor">Professor</label>
               </div>
-            </div>
+            </Form.Group>
+          )}
 
-            {/* Permissão aparece apenas se for professor */}
-            {tipoUsuario === "professor" && (
-              <div className="mb-4">
-                <label className="form-label d-block">Permissão</label>
-                <div className="form-check form-check-inline me-5">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="permissao"
-                    id="orientador"
-                    value="orientador"
-                    required={tipoUsuario === "professor"}
-                  />
-                  <label className="form-check-label" htmlFor="orientador">Orientador</label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="permissao"
-                    id="coordenador"
-                    value="coordenador"
-                    required={tipoUsuario === "professor"}
-                  />
-                  <label className="form-check-label" htmlFor="coordenador">Coordenador</label>
-                </div>
-              </div>
-            )}
-
-
-            <button type="submit" className="btn btn-primary w-100">
-              {coordenador ? "Salvar" : "Entrar"}
-            </button>
-
-          </form>
-        </div>
-      </div>
-    </>
+          <Button type="submit" variant="primary" className="w-100">
+            {coordenador ? "Salvar" : "Entrar"}
+          </Button>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 

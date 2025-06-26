@@ -29,7 +29,7 @@ function App() {
           <Route path="/principalDoAluno" element={<PrincipalDoAluno />} />
           <Route path="/cadastroTCC" element={<CadastroTcc />} />
           <Route path="/listaAtividadesAluno" element={<ListaAtividadesAluno />} />
-          <Route path="/adicionarTrabalhoDoTcc" element={<AdicionarTrabalhoDoTcc />} />
+          <Route path="/atividadeDoAluno" element={<AdicionarTrabalhoDoTcc />} />
 
 
           <Route path="/principalDoOrientador" element={<PrincipalDoOrientador />} />

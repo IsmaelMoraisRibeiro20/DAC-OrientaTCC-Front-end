@@ -1,162 +1,153 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Container, Card, Form, Button } from 'react-bootstrap';
 
 const EditarOrientador = () => {
+  const orientadorInicial = {
+    id: 1,
+    nome: "Andrey",
+    siape: "123",
+    areaAtuacao: "IA",
+    permissao: "coordenador",
+    email: "a@a",
+    senha: "13579",
+    tipoUsuario: "professor",
+  };
 
-    const orientador = {
-        id: 1,
-        nome: "Andrey",
-        siape: "123",
-        areaAtuacao: "IA",
-        permissao: "coordenador",
-        email: "a@a",
-        senha: "13579"
+  const [orientador, setOrientador] = useState(orientadorInicial);
+
+  function rotaParaLogin(e) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    if (form.checkValidity()) {
+      window.location.href = "/login";
+    } else {
+      form.reportValidity();
     }
+  }
 
-    const [tipoUsuario, setTipoUsuario] = useState('');
+  function handleChange(e) {
+    const { id, value } = e.target;
+    setOrientador(prev => ({ ...prev, [id]: value }));
+  }
 
-    function rotaParaLogin(e) {
-        e.preventDefault();
+  function handleTipoUsuarioChange(e) {
+    setOrientador(prev => ({ ...prev, tipoUsuario: e.target.value }));
+  }
 
-        // Se os campos estão válidos, redireciona
-        const form = e.target;
-        if (form.checkValidity()) {//é um método nativo do HTML que verifica se todos os campos do formulário que têm validação (ex: required, type="email", etc.) estão preenchidos corretamente.
-            window.location.href = "/login";
-        } else {
-            form.reportValidity(); // mostra os erros na tela
-        }
-    }
+  function handlePermissaoChange(e) {
+    setOrientador(prev => ({ ...prev, permissao: e.target.value }));
+  }
 
-    const handleTipoUsuarioChange = (e) => {
-        setTipoUsuario(e.target.value);
-    };
+  return (
+    <Container 
+      fluid
+      className="d-flex justify-content-center align-items-center vh-100 bg-light"
+    >
+      <Card style={{ maxWidth: '500px', width: '100%' }} className="p-4 shadow">
+        <h3 className="text-center mb-4">Editar Orientador</h3>
 
-    return (
-        <>
-            <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-                <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }} >
-                    <h3 className="text-center mb-4">Editar Orientador</h3>
+        <Form noValidate onSubmit={rotaParaLogin}>
 
-                    <form>
+          <Form.Group className="mb-3" controlId="siape">
+            <Form.Label>SIAPE</Form.Label>
+            <Form.Control 
+              type="text" 
+              value={orientador.siape} 
+              disabled 
+              required 
+            />
+          </Form.Group>
 
-                        <div className="mb-3">
-                            <label htmlFor="siape" className="form-label">
-                                SIAPE
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="siape"
-                                value={orientador.siape}
-                                required
-                                disabled={true}
-                            />
-                        </div>
+          <Form.Group className="mb-3" controlId="nome">
+            <Form.Label>Nome</Form.Label>
+            <Form.Control 
+              type="text" 
+              value={orientador.nome} 
+              onChange={handleChange}
+              required 
+            />
+          </Form.Group>
 
-                        <div className="mb-3">
-                            <label htmlFor="nome" className="form-label">
-                                Nome
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="nome"
-                                value={orientador.nome}
-                                required
-                            />
-                        </div>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control 
+              type="email" 
+              value={orientador.email} 
+              onChange={handleChange}
+              required 
+            />
+          </Form.Group>
 
-                        <div className="mb-3">
-                            <label htmlFor="email" className="form-label">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="email"
-                                value={orientador.email}
-                                required
-                            />
-                        </div>
+          <Form.Group className="mb-3" controlId="senha">
+            <Form.Label>Senha</Form.Label>
+            <Form.Control 
+              type="password" 
+              value={orientador.senha} 
+              onChange={handleChange}
+              minLength={6}
+              required 
+            />
+          </Form.Group>
 
-                        <div className="mb-3">
-                            <label htmlFor="senha" className="form-label">
-                                Senha
-                            </label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="senha"
-                                value={orientador.senha}
-                                required
-                                minLength={6}
-                            />
-                        </div>
+          <Form.Group className="mb-3" controlId="areaAtuacao">
+            <Form.Label>Área de Atuação</Form.Label>
+            <Form.Control 
+              type="text" 
+              value={orientador.areaAtuacao} 
+              onChange={handleChange}
+              required 
+            />
+          </Form.Group>
 
-                        <div className="mb-3">
-                            <label htmlFor="area" className="form-label">
-                                Área de Atuação
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="area"
-                                value={orientador.areaAtuacao}
-                                required
-                            />
-                        </div>
+          <Form.Group className="mb-4">
+            <Form.Label className="d-block">Tipo de usuário</Form.Label>
+            <Form.Check 
+              inline 
+              label="Professor" 
+              name="tipoUsuario" 
+              type="radio" 
+              id="professor" 
+              value="professor" 
+              checked={orientador.tipoUsuario === 'professor'}
+              onChange={handleTipoUsuarioChange}
+              required
+            />
+          </Form.Group>
 
+          <Form.Group className="mb-4">
+            <Form.Label className="d-block">Permissão</Form.Label>
+            <Form.Check 
+              inline 
+              label="Orientador" 
+              name="permissao" 
+              type="radio" 
+              id="orientador" 
+              value="orientador" 
+              checked={orientador.permissao === 'orientador'}
+              onChange={handlePermissaoChange}
+              required
+            />
+            <Form.Check 
+              inline 
+              label="Coordenador" 
+              name="permissao" 
+              type="radio" 
+              id="coordenador" 
+              value="coordenador" 
+              checked={orientador.permissao === 'coordenador'}
+              onChange={handlePermissaoChange}
+              required
+            />
+          </Form.Group>
 
-                        <div className="mb-4">
-                            <label className="form-label d-block">Tipo de usuário</label>
-                            <div className="form-check form-check-inline">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="tipoUsuario"
-                                    id="professor"
-                                    value="professor"
-                                    checked={true}
-                                    required
-                                />
-                                <label className="form-check-label" htmlFor="professor">Professor</label>
-                            </div>
-                        </div>
+          <Button type="submit" className="w-100" variant="primary">
+            Salvar
+          </Button>
+        </Form>
+      </Card>
+    </Container>
+  );
+};
 
-                        <div className="mb-4">
-                            <label className="form-label d-block">Permissão</label>
-                            <div className="form-check form-check-inline me-5">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="permissao"
-                                    id="orientador"
-                                    value="orientador"
-                                    required
-                                />
-                                <label className="form-check-label" htmlFor="orientador">Orientador</label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="permissao"
-                                    id="coordenador"
-                                    value="coordenador"
-                                    required
-                                />
-                                <label className="form-check-label" htmlFor="coordenador">Coordenador</label>
-                            </div>
-                        </div>
-
-                        <button type="submit" className="btn btn-primary w-100">
-                            Salvar
-                        </button>
-
-                    </form>
-                </div>
-            </div>
-        </>
-    )
-}
-
-export default EditarOrientador
+export default EditarOrientador;

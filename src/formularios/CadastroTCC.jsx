@@ -1,82 +1,66 @@
 import { useNavigate } from 'react-router-dom';
+import { Container, Card, Form, Button, Row, Col } from 'react-bootstrap';
 
 const CadastroTcc = () => {
-    const navegar = useNavigate();
+  const navegar = useNavigate();
 
-    function buttonVoltar() {
-        navegar('/principalDoAluno')
+  function buttonVoltar() {
+    navegar('/principalDoAluno');
+  }
 
+  function rotaParaCadastrar(e) {
+    e.preventDefault();
+    const form = e.target;
+    if (form.checkValidity()) {
+      window.location.href = "/trabalhoAcademico";
+    } else {
+      form.reportValidity();
     }
+  }
 
-    function rotaParaCadastrar(e) {
-        e.preventDefault();
+  return (
+    <Container fluid className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+      <Card style={{ width: "100%", maxWidth: "700px" }} className="shadow">
+        <Card.Body className="d-flex flex-column justify-content-center" style={{ height: "550px" }}>
+          <h3 className="text-center mb-4">Cadastrar TCC</h3>
 
-        const form = e.target;
-        if (form.checkValidity()) {
-            window.location.href = "/trabalhoAcademico";
-        } else {
-            form.reportValidity();
-        }
-    }
+          <Form onSubmit={rotaParaCadastrar}>
+            <Form.Group className="mb-3" controlId="tema">
+              <Form.Label>Tema</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite o tema do TCC"
+                required
+              />
+            </Form.Group>
 
-    return (
-        <>
-            {/* CONTEÚDO PRINCIPAL */}
-            <div className=" d-flex justify-content-center align-items-center min-vh-100 bg-light">
-                <div className="card shadow p-4 d-flex justify-content-center"
-                    style={{
-                        width: "100%",
-                        maxWidth: "700px",
-                        height: "550px",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}>
+            <Form.Group className="mb-4" controlId="siape">
+              <Form.Label>Orientador SIAPE</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite o SIAPE"
+                required
+                minLength={7}
+              />
+            </Form.Group>
 
-                    <h3 className="text-center mb-4">CadastrarTCC</h3>
+            <Row className="justify-content-between">
+              <Col xs={12} md={5}>
+                <Button variant="secondary" className="w-100" onClick={buttonVoltar}>
+                  Voltar
+                </Button>
+              </Col>
+              <Col xs={12} md={5}>
+                <Button type="submit" variant="primary" className="w-100" id="cadastrar">
+                  Cadastrar
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+};
 
-                    <form onSubmit={rotaParaCadastrar}>
-                        <div className="mb-3">
-                            <label htmlFor="tema" className="form-label">
-                                Tema
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="tema"
-                                placeholder="Digite o tema do TCC"
-                                required
-                            />
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="senha" className="form-label">
-                                Orientador SIAPE
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="siape"
-                                placeholder="Digite o SIAPE"
-                                required
-                                minLength={7}
-                            />
-
-                        </div>
-
-                        <div className="d-flex justify-content-between" style={{ padding: "0 2px" }}>
-                            <button type="button" className="btn btn-secondary " style={{ width: "220px" }} onClick={buttonVoltar}>
-                                Voltar
-                            </button>
-
-                            <button type="submit" className="btn btn-primary" style={{ width: "220px" }} id="cadastrar">
-                                Cadastrar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </>
-    )
-}
 export default CadastroTcc;

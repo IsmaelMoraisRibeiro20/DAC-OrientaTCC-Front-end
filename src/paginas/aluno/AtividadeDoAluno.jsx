@@ -1,21 +1,28 @@
 import React, { useRef, useState } from "react";
 import NavBar from "../../componentes/NavBar";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { CiTrash } from "react-icons/ci";
 
 const AdicionarTrabalhoDoTcc = () => {
     const [fileName, setFileName] = useState("");
     const [fileURL, setFileURL] = useState("");
+    const [comentario, setComentario] = useState("");
 
-    const fileInputRef = useRef(null);//Aqui vou criar uma referencia para um elemento HTMl, ela vai apontar para o input 
+    const comentariosAnteriores = [
+        "Andrey é lindo",
+        "Andrey é lindo",
+        "Andrey é lindo",
+
+    ];
+
+    const fileInputRef = useRef(null);
 
     function handleFileSelect(event) {
-        const files = event.target.files;// vai pegar os usuarios selecionado. files é uma lista co os arquivos selecioando
+        const files = event.target.files;
         if (files.length > 0) {
             setFileName(files[0].name);
-            setFileURL(URL.createObjectURL(files[0]));  // Cria uma URL temporária para o navegador abrir
+            setFileURL(URL.createObjectURL(files[0]));
         }
-
-        console.log("Arquivos selecionados:", files);
     }
 
     function handleButtonClick() {
@@ -25,143 +32,136 @@ const AdicionarTrabalhoDoTcc = () => {
     function handleCancel() {
         setFileName(null);
         setFileURL(null);
-        fileInputRef.current.value = null;  // Limpa o input file
+        fileInputRef.current.value = null;
     }
 
     return (
-        <>
-            <div className="d-flex justify-content-center bg-light" style={{ padding: "60px 20px" }}>
-                <div
-                    className="card shadow p-4 w-100"
-                    style={{
-                        maxWidth: "1100px",
-                        display: "flex",
-                        flexDirection: "column",
-                        borderRadius: "12px",
-                    }}
-                >
-                    <NavBar />
+        <Container fluid className="bg-light py-5 d-flex justify-content-center">
+            <Card className="shadow p-4 w-100" style={{ maxWidth: "1100px", borderRadius: "12px" }}>
+                <NavBar />
 
-                    <div
-                        className="d-flex flex-wrap justify-content-center"
-                        style={{ maxWidth: "1100px", margin: "0 auto", gap: "20px" }}
-                    >
-                        {/* CARD GRANDE */}
-                        <div
-                            className="card mb-3 flex-grow-1"
-                            style={{
-                                minWidth: "300px",
-                                flex: "1 1 650px",
-                                padding: "20px",
-                                borderRadius: "10px",
-                            }}
-                        >
-                            <div className="card-body">
+                <Row className="mt-4 g-4">
+                    {/* CARD GRANDE */}
+                    <Col md={8}>
+                        <Card className="h-100">
+                            <Card.Body>
                                 <div className="d-flex justify-content-between flex-wrap">
-                                    <h4 className="card-title" style={{ fontSize: "1.8rem", fontWeight: "bold" }}>
+                                    <Card.Title style={{ fontSize: "1.8rem", fontWeight: "bold" }}>
                                         Nome da atividade
-                                    </h4>
-                                    <p style={{ margin: 0, fontSize: "16px", color: "#555", fontWeight: "bold" }}>
+                                    </Card.Title>
+                                    <p style={{ fontSize: "16px", fontWeight: "bold", color: "#555", marginTop: "8px" }}>
                                         Data de entrega: 23:59
                                     </p>
                                 </div>
 
                                 <hr style={{ border: "1px solid black", margin: "15px 0 25px 0" }} />
 
-                                <p style={{ fontSize: "1.1rem", lineHeight: "1.8" }}>
-                                    <strong>COMO FAZER?</strong> Componham equipes considerando os softwares definidos nas disciplinas de Projeto I e Projeto II, que possuam features (mesmo que em parte) funcionais e viáveis para avaliação de usabilidade.
+                                <Card.Text style={{ fontSize: "1.1rem", lineHeight: "1.8" }}>
+                                    <strong>COMO FAZER?</strong> Componham equipes considerando os softwares
+                                    definidos nas disciplinas de Projeto I e Projeto II, que possuam features
+                                    (mesmo que em parte) funcionais e viáveis para avaliação de usabilidade.
                                     <br />
-                                    Faça a imersão no produto considerando features a serem categorizadas com a técnica de <strong>CARD SORTING</strong>. Em seguida, descreva jornadas do usuário com a técnica de <strong>JOURNEY MAP</strong>, a fim de revelar armadilhas e momentos importantes do usuário na interação ou experiência com o produto.
-                                </p>
+                                    Faça a imersão no produto considerando features a serem categorizadas com a
+                                    técnica de <strong>CARD SORTING</strong>. Em seguida, descreva jornadas do
+                                    usuário com a técnica de <strong>JOURNEY MAP</strong>, a fim de revelar
+                                    armadilhas e momentos importantes do usuário na interação ou experiência com
+                                    o produto.
+                                </Card.Text>
 
-                                <div className="mb-3 mt-4" style={{ maxWidth: "650px", fontWeight: "bold" }}>
-                                    <label htmlFor="exampleFormControlTextarea1" className="form-label" style={{ fontSize: "20px" }}>
+                                <Form.Group className="mt-4">
+                                    <Form.Label style={{ fontSize: "20px", fontWeight: "bold" }}>
                                         Adicionar comentário
-                                    </label>
-                                    <textarea
-                                        className="form-control"
-                                        id="exampleFormControlTextarea1"
-                                        rows="5"
+                                    </Form.Label>
+
+                                    {comentariosAnteriores.length > 0 && (
+                                        <div className="bg-light p-3 mb-3 border rounded" style={{ maxHeight: "150px", overflowY: "auto" }}>
+
+                                            {comentariosAnteriores.map((coment, index) => (
+                                                <>
+                                                    <div key={index} className="d-flex justify-content-between align-items-center mb-2">
+                                                        <span style={{ fontSize: "0.95rem" }}>{coment}</span>
+                                                    </div>
+                                                    <hr style={{ border: "1px solid black", margin: "0 0 20px 0" }} />
+                                                </>
+
+                                            ))}
+
+                                        </div>
+                                    )}
+
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={2}
                                         placeholder="Adicione um comentário"
-                                        style={{ fontSize: "1rem" }}
-                                    ></textarea>
-                                </div>
-                            </div>
-                        </div>
+                                        value={comentario}
+                                        onChange={(e) => setComentario(e.target.value)}
+                                    />
 
-                        {/* CARD PEQUENO */}
-                        <div
-                            className="card"
-                            style={{
-                                width: "350px",
-                                minHeight: "280px", // altura menor que o card principal
-                                alignSelf: "flex-start",
-                                padding: "20px",
-                                flexShrink: 0, // impede de diminuir demais
-                            }}
-                        >
-                            <div className="card-body">
-                                <h4 className="card-title" style={{ fontSize: "1.6rem", fontWeight: "bold" }}>
+                                    <div className="text-end mt-2">
+                                        <Button variant="primary">Adicionar comentário</Button>
+                                    </div>
+                                </Form.Group>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    {/* CARD PEQUENO */}
+                    <Col md={4}>
+                        <Card style={{ minHeight: "280px" }}>
+                            <Card.Body>
+                                <Card.Title style={{ fontSize: "1.6rem", fontWeight: "bold" }}>
                                     Seu trabalho
-                                </h4>
+                                </Card.Title>
 
-                                {/* Conteúdo do arquivo */}
+                                {/* Exibição do arquivo */}
                                 {fileName && (
-                                    <div className="mt-3 d-flex ">
-                                        <p><strong>Arquivo selecionado:</strong></p>
-                                        <a
-                                            href={fileURL}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{
-                                                display: "block",
-                                                marginBottom: "10px",
-                                                color: "#0d6efd",
-                                                textDecoration: "underline",
-                                                wordBreak: "break-word",
-                                            }}
-                                        >
-                                            {fileName}
-                                        </a>
-                                        <button
-                                            onClick={handleCancel}
-                                            title="Remover arquivo"
-                                            style={{
-                                                backgroundColor: "transparent",
-                                                border: "none",
-                                                color: "red",
-                                                fontWeight: "bold",
-                                                fontSize: "18px",
-                                                cursor: "pointer",
-                                                padding: "0",
-                                                lineHeight: "1",
-                                                marginBottom: "18px"
-                                            }}
-                                        >
-                                            <CiTrash size={25}/>
-                                        </button>
+                                    <div className="mt-3 d-flex align-items-start">
+                                        <div>
+                                            <p>
+                                                <strong>Arquivo selecionado:</strong>
+                                            </p>
+
+                                            <div className="d-flex">
+                                                <a
+                                                    href={fileURL}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    style={{
+                                                        color: "#0d6efd",
+                                                        textDecoration: "underline",
+                                                        wordBreak: "break-word",
+                                                        display: "block",
+                                                        marginTop: "5px"
+                                                    }}
+                                                >
+                                                    {fileName}
+                                                </a>
+
+                                                <Button
+                                                    variant="link"
+                                                    onClick={handleCancel}
+                                                    title="Remover arquivo"
+                                                    className="ms-2 p-0 text-danger"
+                                                    style={{ lineHeight: "1", marginTop: "6px" }}
+                                                >
+                                                    <CiTrash size={25} />
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
 
                                 {/* Botões */}
-                                <div className="d-grid gap-3" style={{ marginTop: "20px" }}>
-                                    <button
-                                        className="btn"
-                                        style={{
-                                            border: "2px solid #0d6efd",
-                                            color: "#0d6efd",
-                                            backgroundColor: "transparent",
-                                            fontWeight: "bold",
-                                            padding: "12px 0",
-                                            fontSize: "1rem",
-                                        }}
-                                        type="button"
+                                <div className="d-grid gap-3 mt-4">
+                                    <Button
+                                        variant="outline-primary"
                                         onClick={handleButtonClick}
+                                        style={{ fontWeight: "bold", padding: "12px 0", fontSize: "1rem" }}
                                     >
                                         + Adicionar ou criar
-                                    </button>
+                                    </Button>
 
-                                    <input
+                                    <Form.Control
                                         type="file"
                                         ref={fileInputRef}
                                         style={{ display: "none" }}
@@ -169,25 +169,20 @@ const AdicionarTrabalhoDoTcc = () => {
                                         accept=".pdf"
                                     />
 
-                                    <button
-                                        className="btn btn-primary"
-                                        style={{
-                                            fontWeight: "bold",
-                                            padding: "12px 0",
-                                            fontSize: "1rem",
-                                        }}
-                                        type="button"
+                                    <Button
+                                        variant="primary"
+                                        style={{ fontWeight: "bold", padding: "12px 0", fontSize: "1rem" }}
                                     >
                                         Marcar como concluído
-                                    </button>
+                                    </Button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Card>
+        </Container>
     );
-}
+};
 
 export default AdicionarTrabalhoDoTcc;

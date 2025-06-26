@@ -1,5 +1,6 @@
-import React from 'react'
-import NavBar from '../../componentes/NavBar'
+import React from 'react';
+import NavBar from '../../componentes/NavBar';
+import { Container, Card, ListGroup, Badge, Alert } from 'react-bootstrap';
 
 const ListaAtividadesAluno = () => {
     const atividades = [
@@ -32,85 +33,56 @@ const ListaAtividadesAluno = () => {
     }
 
     return (
-        <>
-            <div className="d-flex justify-content-center bg-light" style={{ padding: "60px 20px" }}>
-                <div
-                    className="card shadow p-4 w-100"
-                    style={{
-                        maxWidth: "1100px",
-                        display: "flex",
-                        flexDirection: "column",
-                        borderRadius: "12px",
-                    }}
-                >
-                    <NavBar />
+        <Container fluid className="bg-light d-flex justify-content-center" style={{ padding: "60px 20px" }}>
+            <Card className="shadow p-4 w-100" style={{ maxWidth: "1100px", borderRadius: "12px" }}>
+                <NavBar />
 
-                    <div className="container my-4" style={{ maxWidth: "700px" }}>
-                        <h2 className="mb-4">Atividades</h2>
+                <Container className="my-4" style={{ maxWidth: "700px" }}>
+                    <h2 className="mb-4">Atividades</h2>
 
-                        {atividades.length === 0 ? (
-                            <div
-                                className="alert alert-info"
-                                style={{
-                                    padding: "20px",
-                                    borderRadius: "8px",
-                                    backgroundColor: "#e9f5ff",
-                                    color: "#31708f",
-                                    border: "1px solid #bce8f1",
-                                    textAlign: "center",
-                                }}
-                            >
-                                Nenhuma atividade foi cadastrada ainda. Aguarde o professor adicionar.
-                            </div>
-                        ) : (
-                            <ul className="list-group">
-                                {atividades.map((atividade) => (
-                                    <li
-                                        key={atividade.id}
-                                        className="list-group-item d-flex justify-content-between align-items-center flex-wrap"
-                                        style={{
-                                            backgroundColor: "#f8f9fa",
-                                            marginBottom: "12px",
-                                            borderRadius: "6px",
-                                            cursor: "pointer",
-                                            transition: "background-color 0.3s",
-                                        }}
-                                        onClick={rotaParaEntrarNaAtividadeAluno}
-                                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#e9ecef")}
-                                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#f8f9fa")}
-                                    >
-                                        <div className="flex-grow-1">
-                                            <h5 className="mb-1">{atividade.titulo}</h5>
-                                            <small>
-                                                Data de entrega: {new Date(atividade.dataEntrega).toLocaleDateString()}
-                                            </small>
-                                        </div>
+                    {atividades.length === 0 ? (
+                        <Alert variant="info" className="text-center">
+                            Nenhuma atividade foi cadastrada ainda. Aguarde o professor adicionar.
+                        </Alert>
+                    ) : (
+                        <ListGroup>
+                            {atividades.map((atividade) => (
+                                <ListGroup.Item
+                                    key={atividade.id}
+                                    action
+                                    onClick={rotaParaEntrarNaAtividadeAluno}
+                                    className="d-flex justify-content-between align-items-center flex-wrap"
+                                    style={{
+                                        borderRadius: "6px",
+                                        marginBottom: "12px",
+                                        backgroundColor: "#f8f9fa",
+                                        transition: "background-color 0.3s",
+                                    }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#e9ecef")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#f8f9fa")}
+                                >
+                                    <div className="flex-grow-1">
+                                        <h5 className="mb-1">{atividade.titulo}</h5>
+                                        <small>
+                                            Data de entrega: {new Date(atividade.dataEntrega).toLocaleDateString()}
+                                        </small>
+                                    </div>
 
-                                        <div className="text-end d-flex flex-column align-items-end">
-                                            {!atividade.entregue && (
-                                                <span
-                                                    className="badge text-secondary"
-                                                    style={{
-                                                        backgroundColor: "transparent",
-                                                        border: "1px transparent lightgray",
-                                                        fontSize: "0.85rem",
-                                                    }}
-                                                >
-                                                    Pendente
-                                                </span>
-                                                //colocar aqui o status da atividade
-                                            )}
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                </div>
-            </div>
+                                    <div className="text-end d-flex flex-column align-items-end">
+                                        {!atividade.entregue && (
+                                            <Badge bg="light" text="secondary" className="border border-light">
+                                                Pendente
+                                            </Badge>
+                                        )}
+                                    </div>
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+                    )}
+                </Container>
+            </Card>
+        </Container>
+    );
+};
 
-        </>
-    )
-}
-
-export default ListaAtividadesAluno
+export default ListaAtividadesAluno;
