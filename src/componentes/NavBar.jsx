@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import { NavDropdown } from 'react-bootstrap';
 import { BsPersonCircle } from 'react-icons/bs';
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
 
     const [hover, setHover] = useState(false);
-
-    const usuario = {
-        tipo: "coordenador"
-    };
 
     return (
         <>
@@ -33,11 +29,11 @@ const NavBar = () => {
                     </a>
 
                     <div className="d-flex align-items-center">
-                        <h3 className="me-3 d-none d-md-block">Ana Maria</h3>
+                        <h3 className="me-3 d-none d-md-block">{user.nome}</h3>
 
 
                         <NavDropdown title={<BsPersonCircle size={45} color="#6c757d" />} id="nav-dropdown" align="end">
-                            {usuario.tipo === "coordenador" && (
+                            {user.tipo === "coordenador" && (
                                 <>
                                     <NavDropdown.Item href="/listarOrientador">Gerenciar Orientadores</NavDropdown.Item>
                                     <NavDropdown.Item href="/listarAluno">Listar Alunos</NavDropdown.Item>

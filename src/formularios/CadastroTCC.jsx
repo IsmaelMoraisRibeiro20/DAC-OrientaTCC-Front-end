@@ -1,20 +1,49 @@
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Container, Card, Form, Button, Row, Col } from 'react-bootstrap';
+import { useAppContext } from '../context/AppContext';
 
 const CadastroTcc = () => {
-  const navegar = useNavigate();
+
+  const navigate = useNavigate();
+  const { user, setUser } = useAppContext();
+
+  const [tema, setTema] = useState("");
+  const [siape, setSiape] = useState("");
 
   function buttonVoltar() {
-    navegar('/principalDoAluno');
+    navigate('/principalDoAluno');
   }
 
   function rotaParaCadastrar(e) {
     e.preventDefault();
-    const form = e.target;
-    if (form.checkValidity()) {
-      window.location.href = "/trabalhoAcademico";
+
+    if (tema && siape) {
+      setUser({
+        ...user,
+        trabalhoAcademico: {
+          tema: tema,
+          orientador: {
+            nome: "Ana",
+            siape: siape,
+          },
+          dataCriacao: new Date().toLocaleDateString('pt-BR'),
+          listaAtividades: [
+            {
+              id: 1,
+              titulo: "Atividade 1: Introdução ao React",
+              descricao: "Leia os conceitos básicos e crie seu primeiro componente.",
+              dataEntrega: "2025-06-25",
+              entregue: false,
+            }
+          ],
+        }
+      });
+      console.log(user)
+      navigate("/principalDoAluno")
+
     } else {
-      form.reportValidity();
+      alert("Preencha todos os campos");
     }
   }
 
@@ -30,6 +59,7 @@ const CadastroTcc = () => {
               <Form.Control
                 type="text"
                 placeholder="Digite o tema do TCC"
+                onChange={(e) => setTema(e.target.value)}
                 required
               />
             </Form.Group>
@@ -39,8 +69,9 @@ const CadastroTcc = () => {
               <Form.Control
                 type="text"
                 placeholder="Digite o SIAPE"
-                required
                 minLength={7}
+                onChange={(e) => setSiape(e.target.value)}
+                required
               />
             </Form.Group>
 

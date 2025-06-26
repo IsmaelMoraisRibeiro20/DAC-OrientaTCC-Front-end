@@ -1,31 +1,11 @@
 import React from 'react';
 import NavBar from '../../componentes/NavBar';
 import { Container, Card, ListGroup, Badge, Alert } from 'react-bootstrap';
+import { useAppContext } from '../../context/AppContext';
 
 const ListaAtividadesAluno = () => {
-    const atividades = [
-        {
-            id: 1,
-            titulo: "Atividade 1: Introdução ao React",
-            descricao: "Leia os conceitos básicos e crie seu primeiro componente.",
-            dataEntrega: "2025-06-25",
-            entregue: false,
-        },
-        {
-            id: 2,
-            titulo: "Atividade 2: Estados e Props",
-            descricao: "Pratique estados e props em componentes funcionais.",
-            dataEntrega: "2025-06-28",
-            entregue: true,
-        },
-        {
-            id: 3,
-            titulo: "Atividade 3: Hooks",
-            descricao: "Implemente useState e useEffect em um projeto simples.",
-            dataEntrega: "2025-07-02",
-            entregue: false,
-        },
-    ];
+
+    const { user, setUser } = useAppContext()
 
     function rotaParaEntrarNaAtividadeAluno(e) {
         e.preventDefault();
@@ -35,18 +15,18 @@ const ListaAtividadesAluno = () => {
     return (
         <Container fluid className="bg-light d-flex justify-content-center" style={{ padding: "60px 20px" }}>
             <Card className="shadow p-4 w-100" style={{ maxWidth: "1100px", borderRadius: "12px" }}>
-                <NavBar />
+                <NavBar user={user} />
 
                 <Container className="my-4" style={{ maxWidth: "700px" }}>
                     <h2 className="mb-4">Atividades</h2>
 
-                    {atividades.length === 0 ? (
+                    {user.trabalhoAcademico.listaAtividades === null ? (
                         <Alert variant="info" className="text-center">
-                            Nenhuma atividade foi cadastrada ainda. Aguarde o professor adicionar.
+                            Nenhuma atividade foi cadastrada ainda. Aguarde o orientador adicionar.
                         </Alert>
                     ) : (
                         <ListGroup>
-                            {atividades.map((atividade) => (
+                            {user.trabalhoAcademico.listaAtividades.map((atividade) => (
                                 <ListGroup.Item
                                     key={atividade.id}
                                     action

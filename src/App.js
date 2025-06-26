@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import CadastroUsuario from './formularios/CadastroUsuario.jsx';
 import Login from './formularios/Login.jsx';
@@ -16,33 +16,35 @@ import ListarAluno from './paginas/coordenador/ListarAluno.jsx';
 import EditarOrientador from './paginas/coordenador/EditarOrientador.jsx';
 import GerenciarOrientador from './paginas/coordenador/GerenciarOrientador.jsx';
 
+import { AppProvider } from './context/AppContext.jsx';
+
 function App() {
+
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/cadastro" />} />
-          <Route path="/cadastro" element={<CadastroUsuario />} />
-          <Route path="/login" element={<Login />} />
+    <AppProvider>
+      <Routes>
+        <Route path="/" element={<Navigate to="/principalDoAluno" />} />
+        <Route path="/cadastro" element={<CadastroUsuario />} />
+        <Route path="/login" element={<Login />} />
 
 
-          <Route path="/principalDoAluno" element={<PrincipalDoAluno />} />
-          <Route path="/cadastroTCC" element={<CadastroTcc />} />
-          <Route path="/listaAtividadesAluno" element={<ListaAtividadesAluno />} />
-          <Route path="/atividadeDoAluno" element={<AdicionarTrabalhoDoTcc />} />
+        <Route path="/principalDoAluno" element={<PrincipalDoAluno />} />
+        <Route path="/cadastroTCC" element={<CadastroTcc />} />
+        <Route path="/listaAtividadesAluno" element={<ListaAtividadesAluno />} />
+        <Route path="/atividadeDoAluno" element={<AdicionarTrabalhoDoTcc />} />
 
 
-          <Route path="/principalDoOrientador" element={<PrincipalDoOrientador />} />
-          <Route path="/listaAtividadesOrientador" element={<ListaAtividadesOrientador />} />
-          <Route path="/atividadeOrientador" element={<AtividadeOrientador />} />
+        <Route path="/principalDoOrientador" element={<PrincipalDoOrientador />} />
+        <Route path="/listaAtividadesOrientador" element={<ListaAtividadesOrientador />} />
+        <Route path="/atividadeOrientador" element={<AtividadeOrientador />} />
 
-          <Route path="/listarAluno" element={<ListarAluno />} />
-          <Route path="/listarOrientador" element={<GerenciarOrientador />} />
-          <Route path="/editarOrientador" element={<EditarOrientador />} />
+        <Route path="/listarAluno" element={<ListarAluno />} />
+        <Route path="/listarOrientador" element={<GerenciarOrientador />} />
+        <Route path="/editarOrientador" element={<EditarOrientador />} />
 
-        </Routes>
-      </BrowserRouter>
-    </>
+      </Routes>
+    </AppProvider>
+
   );
 }
 
