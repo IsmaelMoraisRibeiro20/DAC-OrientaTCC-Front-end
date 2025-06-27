@@ -1,16 +1,59 @@
-import React from 'react';
-import { Container, Card, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Card, Form, Button, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import gerarSenha from '../util/geradorSenha';
 
 const Login = () => {
 
-  function rotaParaEntrar(e) {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const [emailRecuperacao, setEmailRecuperacao] = useState("");
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const navigate = useNavigate();
+
+  const recuperacaoDeSenha = (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    if (form.checkValidity()) {
-      window.location.href = "/atividadeDoAluno";
+    if (emailRecuperacao) {
+      alert("Nova senha enviadada");
+      const novaSenha = gerarSenha();
+      console.log(novaSenha);
+      handleClose();
+      //procurar api para mandar email com nova senha(emailjs parece nao esta funcionando)
+      //atualizar usuarioo para que el  consiga entrar com a senha nva
+
     } else {
-      form.reportValidity();
+      alert("Preencha o campo de email");
+    }
+
+  };
+
+  const rotaParaEntrar = (e) => {
+    e.preventDefault();
+
+    if (email && senha) {
+      //Recuperar do banco usuario com esse email e senha para direcionalo para a pagina principal
+
+      // if (user.tipoUsuario === "aluno") {
+      //   navigate("/principalDoAluno");
+      // }else {
+      //   navigate("/principalDoOrientador");
+      // }
+      const user = {
+        email,
+        senha
+      }
+
+      console.log(user)
+
+    } else {
+
+      alert("Preencha todos os campos");
     }
   }
 
@@ -25,6 +68,7 @@ const Login = () => {
             <Form.Control
               type="email"
               placeholder="Digite seu email"
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </Form.Group>
@@ -34,11 +78,32 @@ const Login = () => {
             <Form.Control
               type="password"
               placeholder="Digite sua senha"
+              onChange={(e) => setSenha(e.target.value)}
               required
               minLength={6}
             />
-            <div className="text-center mt-2">
-              <a href="/cadastro">Esqueceu a senha?</a>
+            <div className=" d-flex text-center justify-content-center mt-2">
+              <p
+                onClick={() => setShow(true)}
+                style={{
+                  color: "blue",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  backgroundColor: "white",
+                  width: "135px",
+                  marginBottom: "0px"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "#357ABD";
+
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "#0d6efd";
+
+                }}
+              >
+                Esqueceu a senha?
+              </p>
             </div>
           </Form.Group>
 
@@ -47,6 +112,37 @@ const Login = () => {
           </Button>
         </Form>
       </Card>
+
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Recuperar Senha</Modal.Title>
+        </Modal.Header>
+
+        <Form onSubmit={recuperacaoDeSenha}>
+          <Modal.Body>
+            <Form.Group controlId='email'>
+              <Form.Label className='mb-3'>
+                Informe seu <strong>e-mail</strong> para receber uma nova senha
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Digite seu email"
+                onChange={(e) => setEmailRecuperacao(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancelar
+            </Button>
+            <Button variant="danger" type="submit">
+              Confirmar
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
     </Container>
   );
 };

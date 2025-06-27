@@ -190,6 +190,29 @@ const CadastroUsuario = () => {
               </div>
             </Form.Group>
           )}
+          <div className=" d-flex text-center justify-content-center mt-2">
+            <p
+              style={{
+                color: "blue",
+                textDecoration: "underline",
+                cursor: "pointer",
+                backgroundColor: "white",
+                width: "150px",
+                marginBottom: "5px"
+              }}
+              onClick={() => navigate("/login")}
+              onMouseEnter={(e) => {
+                e.target.style.color = "#357ABD";
+
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = "#0d6efd";
+
+              }}
+            >
+              Ja possui uma conta?
+            </p>
+          </div>
 
           <Button type="submit" variant="primary" className="w-100">
             Entrar
