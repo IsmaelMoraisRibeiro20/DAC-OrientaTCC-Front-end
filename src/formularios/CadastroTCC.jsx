@@ -11,10 +11,6 @@ const CadastroTcc = () => {
   const [tema, setTema] = useState("");
   const [siape, setSiape] = useState("");
 
-  function buttonVoltar() {
-    navigate('/principalDoAluno');
-  }
-
   function rotaParaCadastrar(e) {
     e.preventDefault();
 
@@ -39,7 +35,7 @@ const CadastroTcc = () => {
           ],
         }
       });
-      console.log(user)
+      
       navigate("/principalDoAluno")
 
     } else {
@@ -77,7 +73,7 @@ const CadastroTcc = () => {
 
             <Row className="justify-content-between">
               <Col xs={12} md={5}>
-                <Button variant="secondary" className="w-100" onClick={buttonVoltar}>
+                <Button variant="secondary" className="w-100" onClick={() => navigate('/principalDoAluno')}>
                   Voltar
                 </Button>
               </Col>

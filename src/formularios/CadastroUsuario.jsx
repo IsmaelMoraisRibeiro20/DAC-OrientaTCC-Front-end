@@ -1,25 +1,65 @@
 import React, { useState } from 'react';
 import { Container, Card, Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const CadastroUsuario = () => {
 
-  const coordenador = true; // Altera o nome do botão se verdadeiro
+  const [siape, setSiape] = useState("");
+  const [matricula, setMatricula] = useState("");
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [areaAtuacao, setAreaAtuacao] = useState("");
+  const [tipoUsuario, setTipoUsuario] = useState("");
+  const [permissao, setPermissao] = useState("");
 
-  const [tipoUsuario, setTipoUsuario] = useState('');
+  const navigate = useNavigate();
+
 
   function rotaParaLogin(e) {
     e.preventDefault();
-    const form = e.target;
-    if (form.checkValidity()) {
-      window.location.href = "/login";
-    } else {
-      form.reportValidity();
-    }
-  }
 
-  const handleTipoUsuarioChange = (e) => {
-    setTipoUsuario(e.target.value);
-  };
+    const camposComuns = nome && email && senha && tipoUsuario;
+
+    if (tipoUsuario === "aluno") {
+      if (camposComuns && matricula) {
+        const user = {
+          matricula,
+          nome,
+          email,
+          senha,
+          tipoUsuario,
+        };
+        //persistir usuario antes de ser redirecionado
+        navigate("/login");
+
+      } else {
+        alert("Preencha todos os campos");
+      }
+
+    } else if (tipoUsuario === "professor") {
+      if (camposComuns && siape && areaAtuacao && permissao) {
+        const user = {
+          siape,
+          nome,
+          email,
+          senha,
+          areaAtuacao,
+          tipoUsuario,
+          permissao,
+        };
+        //persistir usuario antes de ser redirecionado
+        navigate("/login");
+
+      } else {
+        alert("Preencha todos os campos obrigatórios para professor.");
+      }
+
+    } else {
+      alert("Preencha todos os campos");
+    }
+
+  }
 
   return (
     <Container className="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -35,6 +75,7 @@ const CadastroUsuario = () => {
               <Form.Control
                 type="text"
                 placeholder="Digite seu SIAPE"
+                onChange={(e) => setSiape(e.target.value)}
                 required
               />
             </Form.Group>
@@ -44,6 +85,7 @@ const CadastroUsuario = () => {
               <Form.Control
                 type="text"
                 placeholder="Digite sua matrícula"
+                onChange={(e) => setMatricula(e.target.value)}
                 required
               />
             </Form.Group>
@@ -54,6 +96,7 @@ const CadastroUsuario = () => {
             <Form.Control
               type="text"
               placeholder="Digite seu nome"
+              onChange={(e) => setNome(e.target.value)}
               required
             />
           </Form.Group>
@@ -63,6 +106,7 @@ const CadastroUsuario = () => {
             <Form.Control
               type="email"
               placeholder="Digite seu email"
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </Form.Group>
@@ -72,6 +116,7 @@ const CadastroUsuario = () => {
             <Form.Control
               type="password"
               placeholder="Digite sua senha"
+              onChange={(e) => setSenha(e.target.value)}
               required
               minLength={6}
             />
@@ -84,6 +129,7 @@ const CadastroUsuario = () => {
               <Form.Control
                 type="text"
                 placeholder="Digite sua área de atuação"
+                onChange={(e) => setAreaAtuacao(e.target.value)}
                 required
               />
             </Form.Group>
@@ -99,9 +145,8 @@ const CadastroUsuario = () => {
                 name="tipoUsuario"
                 id="aluno"
                 value="aluno"
-                onChange={handleTipoUsuarioChange}
                 checked={tipoUsuario === "aluno"}
-                disabled={coordenador}
+                onChange={(e) => setTipoUsuario(e.target.value)}
                 required
               />
               <Form.Check
@@ -110,8 +155,8 @@ const CadastroUsuario = () => {
                 name="tipoUsuario"
                 id="professor"
                 value="professor"
-                onChange={handleTipoUsuarioChange}
                 checked={tipoUsuario === "professor"}
+                onChange={(e) => setTipoUsuario(e.target.value)}
                 required
               />
             </div>
@@ -128,6 +173,8 @@ const CadastroUsuario = () => {
                   name="permissao"
                   id="orientador"
                   value="orientador"
+                  checked={permissao === "orientador"}
+                  onChange={(e) => setPermissao(e.target.value)}
                   required
                 />
                 <Form.Check
@@ -136,6 +183,8 @@ const CadastroUsuario = () => {
                   name="permissao"
                   id="coordenador"
                   value="coordenador"
+                  checked={permissao === "coordenador"}
+                  onChange={(e) => setPermissao(e.target.value)}
                   required
                 />
               </div>
@@ -143,7 +192,7 @@ const CadastroUsuario = () => {
           )}
 
           <Button type="submit" variant="primary" className="w-100">
-            {coordenador ? "Salvar" : "Entrar"}
+            Entrar
           </Button>
         </Form>
       </Card>
