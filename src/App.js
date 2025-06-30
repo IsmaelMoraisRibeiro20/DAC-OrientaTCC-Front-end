@@ -23,7 +23,7 @@ function App() {
   return (
     <AppProvider>
       <Routes>
-        <Route path="/" element={<Navigate to="/principalDoAluno" />} />
+        <Route path="/" element={<Navigate to="/cadastro" />} />
         <Route path="/cadastro" element={<CadastroUsuario />} />
         <Route path="/login" element={<Login />} />
 

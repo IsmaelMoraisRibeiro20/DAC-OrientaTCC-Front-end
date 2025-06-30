@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { Container, Card, Form, Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import gerarSenha from '../util/geradorSenha';
+import { pegarAlunoId } from '../services/alunoService';
+import { useAppContext } from '../context/AppContext';
 
 const Login = () => {
+
+  const { setUser } = useAppContext()
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -33,23 +37,21 @@ const Login = () => {
 
   };
 
-  const rotaParaEntrar = (e) => {
+  const rotaParaEntrar = async (e) => {
     e.preventDefault();
 
     if (email && senha) {
       //Recuperar do banco usuario com esse email e senha para direcionalo para a pagina principal
+      const usuario = await pegarAlunoId();
+      setUser(usuario);
 
-      // if (user.tipoUsuario === "aluno") {
-      //   navigate("/principalDoAluno");
-      // }else {
-      //   navigate("/principalDoOrientador");
-      // }
-      const user = {
-        email,
-        senha
+      if (usuario.matricula) {
+        navigate("/principalDoAluno");
+
+      } else {
+        navigate("/principalDoOrientador");
       }
 
-      console.log(user)
 
     } else {
 
